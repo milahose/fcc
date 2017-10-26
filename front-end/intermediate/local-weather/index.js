@@ -12,14 +12,12 @@ const displayWeather = (position) => {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
 
-  const API = `https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${lon}`; 
+  const API = `http://api.wunderground.com/api/${key}/forecast/geolookup/conditions/q/${lat},${lon}.json`
 
   $.getJSON(API, (data) => {
-
+    $('.weather').html(JSON.stringify(data));
   });
 }
-
-const key = '40df37516d6efce';
 
 // if (navigator.geolocation) {
 //   navigator.geolocation.watchPosition((position) => {
