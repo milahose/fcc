@@ -15,7 +15,7 @@ const displayWeather = (position) => {
     $('p').html(weather.current_observation.weather);  
     $('.fahrenheit').html(`${Math.ceil(weather.current_observation.temp_f)} &deg;<a href="#">F</a>`);
     $('.celsius').html(`${Math.ceil(weather.current_observation.temp_c)} &deg;<a href="#">C</a>`);
-    $('a').on('click', () => { $('h2').toggle() });
+    $('a').on('click', () => { $('h3').toggle() });
 
   if (weather.current_observation.weather === 'Clear' || weather.current_observation.weather === 'Dust') {
       $('.weather_icon').html('<div class="icon sunny"><div class="sun"><div class="rays"></div></div></div>');
