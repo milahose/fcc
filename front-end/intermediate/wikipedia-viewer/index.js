@@ -39,7 +39,12 @@ $(document).ready(() => {
     $('input').val('');
     $('section').empty();
     $('p').show();
+    $('.expSearchBox').css('margin-left', '-180px');
   });
+
+  $('input').on( "blur", () => {
+    $('.expSearchBox').css('margin', '0 auto');
+  })
 
   $('input').keypress((e) => {
     let key = e.which;
