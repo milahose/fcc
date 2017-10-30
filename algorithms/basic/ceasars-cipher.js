@@ -7,7 +7,7 @@
  * non-alphabetic character (i.e. spaces, punctuation), but do pass them on.
  */ 
 
-function rot13(str) { // LBH QVQ VG!
+function rot13(str) {
   let translation = '';
 
   for (let i = 0; i < str.length; i++) {
