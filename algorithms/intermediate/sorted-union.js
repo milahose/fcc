@@ -10,8 +10,7 @@
 function uniteUnique(arr) {
   var args = [...arguments];
   
-  return args.reduce(
-    function(a, b) {
+  return args.reduce((a, b) => {
       return a.concat(b).filter((el, i, arr) => {
 		    return arr.indexOf(el) === i;
       });
