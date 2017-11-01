@@ -12,11 +12,11 @@ function rot13(str) {
 
   for (let i = 0; i < str.length; i++) {
     if (str[i].charCodeAt(0) >= 65 && str[i].charCodeAt(0) <= 77) {
-	  translation += String.fromCharCode(str[i].charCodeAt(0) + 13);
+	    translation += String.fromCharCode(str[i].charCodeAt(0) + 13);
     } else if (str[i].charCodeAt(0) >= 77 && str[i].charCodeAt(0) <= 90) {
       translation += String.fromCharCode(str[i].charCodeAt(0) - 13);
     } else {
-	  translation += str[i];
+	    translation += str[i];
     }
   }
 
