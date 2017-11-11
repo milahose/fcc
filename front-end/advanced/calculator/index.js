@@ -1,4 +1,8 @@
 $(() => {
+  // keep operator button highlighted until new number is clicked
+  // have numbers sort of fade on click not just on hover
+  // Add key press functionality w/ backspace functionality
+  // Get back to this shortly
   let input = '';
   let result = [];
 
@@ -8,12 +12,40 @@ $(() => {
     input += $(target).val();
   });
 
-  // Add key press functionality w/ backspace functionality
-
   // $('.operator').on('click', (e) => {  
   //   let target = e.target;
   //   console.log('target', $(target).val());
   // });
+
+  $('.operator').focus((e) => {
+    let target = e.target;
+    console.log('im in focus', $(target));
+
+    $(target).animate({backgroundColor: '#fff'});
+  });
+
+  $('button').on('click', (e) => {
+    e.preventDefault();
+    let target = e.target;
+
+    if ($(target).val() !== 'clear' && $(target).val() !== '%') {
+      $('#newVal').text(`${$(target).val()}`);
+      console.log('input', input)
+      if (input.length < 15) {
+        $('#newVal').text(`${input}`);
+      } else {
+        $('#newVal').text(`${input.slice(0, 14)}`);
+      }
+    }    
+
+    $('#ac').text('C');
+    $('#ac').on('click', () => {
+      $('#ac').text('AC');
+      $('#newVal').text('0');
+      input = '';
+      result = [];
+    })
+  });
 
   $('#percent').on('click', (e) => {
     input = input.split('')
@@ -62,28 +94,6 @@ $(() => {
       result.push(input);
       console.log('the result is ', eval(result.join('')));
     }
-  });
-
-  $('button').on('click', (e) => {
-    e.preventDefault();
-    let target = e.target;
-
-    if ($(target).val() !== 'clear' && $(target).val() !== '%') {
-      $('#newVal').text(`${$(target).val()}`);
-      console.log('input', input)
-      if (input.length < 15) {
-        $('#newVal').text(`${input}`);
-      } else {
-        $('#newVal').text(`${input.slice(0, 14)}`);
-      }
-    }    
-
-    $('#ac').text('C');
-    $('#ac').on('click', () => {
-      $('#ac').text('AC');
-      $('#newVal').text('0');
-      input = '';
-      result = [];
-    })
+    $('#newVal').text(`${eval(result.join(''))}`);
   });
 });
