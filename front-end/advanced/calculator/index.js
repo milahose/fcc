@@ -3,6 +3,12 @@ $(() => {
   // have numbers sort of fade on click not just on hover
   // Add key press functionality w/ backspace functionality
   // Get back to this shortly
+
+  // $('.operator').on('click', (e) => {  
+  //   let target = e.target;
+  //   console.log('target', $(target).val());
+  // });
+  
   let input = '';
   let result = [];
 
@@ -11,11 +17,6 @@ $(() => {
     console.log('target', $(target).val());
     input += $(target).val();
   });
-
-  // $('.operator').on('click', (e) => {  
-  //   let target = e.target;
-  //   console.log('target', $(target).val());
-  // });
 
   $('.operator').focus((e) => {
     let target = e.target;
