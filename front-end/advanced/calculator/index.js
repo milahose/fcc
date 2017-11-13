@@ -2,13 +2,7 @@ $(() => {
   // keep operator button highlighted until new number is clicked
   // have numbers sort of fade on click not just on hover
   // Add key press functionality w/ backspace functionality
-  // Get back to this shortly
 
-  // $('.operator').on('click', (e) => {  
-  //   let target = e.target;
-  //   console.log('target', $(target).val());
-  // });
-  
   let input = '';
   let result = [];
 
@@ -16,13 +10,6 @@ $(() => {
     let target = e.target;
     console.log('target', $(target).val());
     input += $(target).val();
-  });
-
-  $('.operator').focus((e) => {
-    let target = e.target;
-    console.log('im in focus', $(target));
-
-    $(target).animate({backgroundColor: '#fff'});
   });
 
   $('button').on('click', (e) => {
@@ -52,10 +39,12 @@ $(() => {
     input = input.split('')
     input.splice(-2, 0, '.');
     input = input.join('');
+    $('#newVal').text(input);
   });
 
   $('#float').on('click', (e) => {
     input += '.';
+    $('#newVal').text(input);
   });
 
   $('#negative').on('click', (e) => {
@@ -64,6 +53,7 @@ $(() => {
     } else {
       input = '-';
     } 
+    $('#newVal').text(input);
   });
 
   $('#add').on('click', () => {
@@ -95,6 +85,12 @@ $(() => {
       result.push(input);
       console.log('the result is ', eval(result.join('')));
     }
-    $('#newVal').text(`${eval(result.join(''))}`);
+
+    if (`${eval(result.join('')).length}` < 15) {
+      $('#newVal').text(`${eval(result.join(''))}`);
+    } else {
+      let trimmed = eval(result.join('')).toString().slice(0, 14);
+      $('#newVal').text(`${trimmed}`);
+    }
   });
 });
