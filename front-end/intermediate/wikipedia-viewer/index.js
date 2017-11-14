@@ -29,8 +29,8 @@ const wikiArticles = () => {
           <dt>${results[i].title}</dt>
           <dd>${results[i].snippet}</dd>
         </dl></a>`);
-    } 
-   }
+      } 
+    }
   });
 }
 
