@@ -1,5 +1,6 @@
 let input = '';
 let result = [];
+let key;
 
 const percent = () => {
   input = input.split('')
@@ -75,21 +76,22 @@ const showResult = () => {
   } else {
     $('#newVal').text(eval(result.join('')).toString().slice(0, 14));
   }
-
-  console.log('result', eval(result.join('')));
 }
 
 
 $(() => {
-  $(document).on('click keydown', (e) => {
+  $('body').on('click keydown', (e) => {
+    let shifted = e.shiftKey;
     e.preventDefault();
     $('#ac').text('C');
 
-    let key = $(e.target).val() || String.fromCharCode(e.which);
-    let shifted = e.shiftKey;
+    if (e.type === 'keydown') {
+      key = String.fromCharCode(e.which);
+    } else {
+      key = $(e.target).val();
+    }
 
-    if (key.match('[0-9]')) {
-      console.log(key);
+    if (key.match('[0-9]') && !shifted) {
       input += key;
       $('#newVal').text(key);
 
@@ -100,125 +102,28 @@ $(() => {
       }
     }
 
-    if (e.which === 27 || key === $('#ac')) {
-      
+    if (e.which === 27 || key === 'clear') {
+      $('#ac').text('AC');
+      $('#newVal').text('0');
+      input = '';
+      result = [];
     }
 
-    // $('#ac').on('click', () => {
-    //   $('#ac').text('AC');
-    //   $('#newVal').text('0');
-    //   input = '';
-    //   result = [];
-    // });
+    if (shifted && (e.which === 53) || e.target.id === 'percent') percent();
+    if (e.which === 190 || e.target.id === 'float') floats();
+    if (e.which === 187 || e.target.id === 'add') add();
+    if (e.which === 189 || e.target.id === 'subtract') subtract();
+    if ((e.which === 189 && result.length < 1) || e.target.id === 'negative') negatives();
+    if ((e.which === 88 || shifted && e.which === 56) || e.target.id === 'multiply') multiply();
+    if (e.which === 191 || e.target.id === 'divide') divide();
 
-    // 187 is +/=
-    // 189 is -
-    // 27 is esc
-    // 13 is enter
+    $('.math').on('blur', (e) => {
+      let target = e.target;
+      $(target).css('transition', 'background-color .5s ease-out');
+    })
 
-    // if ((key.match('[0-9]') && !shifted) || $('button')) {
-    //   console.log(key);
-    //   $('#newVal').text(key);
-
-    //   //if (key !== 'clear' && key !== '%') {
-    //     //$('#newVal').text(key);
-    //     // if (input.length < 15) {
-    //     //   $('#newVal').text(`${input}`);
-    //     // } else {
-    //     //   $('#newVal').text(`${input.slice(0, 14)}`);
-    //     // }
-    //   //}
-    // }
+    if (e.which === 13 || key === '=') {
+      showResult();
+    }
   });
-
-
-  // $(document).on('keydown', (e) => {
-  //   let key = String.fromCharCode(e.which);
-  //   let shifted = e.shiftKey;
-
-  //   if (e.which === 13) {
-  //     showResult();
-  //   }
-    
-  //   if (shifted) {
-  //     if (key === '5') {
-  //       percent();
-  //     } else if (key === '8') {
-  //       multiply();
-  //     } else if (e.which === 187 && input.length > 0) {
-  //       showResult();
-  //     }
-  //   }
-
-  //   if (key.match('[0-9]') && !shifted) {
-  //     $('#ac').text('C');
-  //     input += key;
-  //     $('#newVal').text(key);
-  //     if (result.length < 15) {
-  //       $('#newVal').text(`${input}`);
-  //     } else {
-  //       $('#newVal').text(`${input.slice(0, 14)}`);
-  //     }
-  //   } 
-    
-  //   if (e.which === 187) {
-  //     add();
-  //   } else if (e.which === 189) {
-  //     subtract();
-  //   } else if (e.which === 88) {
-  //     multiply();
-  //   } else if (e.which === 191) {
-  //     divide();
-  //   } else if (e.which === 190) {
-  //     floats();
-  //   } else if (e.which === 27) {
-  //     $('#newVal').text('0');
-  //     $('#ac').text('AC');
-  //     input = '';
-  //     result = [];
-  //   }
-  // });
-
-  // $('.num').on('click', (e) => {
-  //   let target = e.target;
-  //   if ($(target).val() !== "") {
-  //     input += $(target).val();
-  //   }
-  // });
-
-  // $('button').on('click', (e) => {
-  //   e.preventDefault();
-  //   let target = e.target;
-
-  //   if ($(target).val() !== 'clear' && $(target).val() !== '%') {
-  //     $('#newVal').text(`${$(target).val()}`);
-  //     if (input.length < 15) {
-  //       $('#newVal').text(`${input}`);
-  //     } else {
-  //       $('#newVal').text(`${input.slice(0, 14)}`);
-  //     }
-  //   }    
-
-  //   $('#ac').text('C');
-  //   $('#ac').on('click', () => {
-  //     $('#ac').text('AC');
-  //     $('#newVal').text('0');
-  //     input = '';
-  //     result = [];
-  //   })
-  // });
-
-  // $('.math').on('blur', (e) => {
-  //   let target = e.target;
-  //   $(target).css('transition', 'background-color .5s ease-out');
-  // })
-
-  // $('#percent').on('click', percent);
-  // $('#float').on('click', floats);
-  // $('#negative').on('click', negatives);
-  // $('#add').on('click', add);
-  // $('#subtract').on('click', subtract);
-  // $('#multiply').on('click', multiply);
-  // $('#divide').on('click', divide);
-  // $('#equals').on('click', showResult);
 });
